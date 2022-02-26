@@ -6,8 +6,38 @@ const appointmentTimeOfDay = (startsAt) => {
   return `${h}:${m}`;
 };
 
-export const Appointment = ({ customer }) => (
-  <div>{customer.firstName}</div>
+const customerFullName = (customer) => {
+  return `${customer.firstName} ${customer.lastName}`;
+};
+
+export const Appointment = ({ customer, details }) => (
+  <div>
+    {customer.firstName}
+    <table id="customer-info">
+      <tbody>
+        <tr>
+          <th>Customer</th>
+          <td>{customerFullName(customer)}</td>
+        </tr>
+        <tr>
+          <th>Phone Number</th>
+          <td>{customer.phoneNumber}</td>
+        </tr>
+        <tr>
+          <th>Stylist</th>
+          <td>{details.stylist}</td>
+        </tr>
+        <tr>
+          <th>Service</th>
+          <td>{details.service}</td>
+        </tr>
+        <tr>
+          <th>Notes</th>
+          <td>{details.notes}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 );
 
 export const AppointmentsDayView = ({ appointments }) => {
