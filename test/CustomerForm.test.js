@@ -110,4 +110,13 @@ describe('CustomerForm', () => {
     itSavesExistingValue('lastName');
     itSavesNewValue('lastName', 'newValue');
   });
+
+  describe('phone number field', () => {
+    itRendersAsATextBox('phoneNumber');
+    itIncludesTheExistingValue('phoneNumber');
+    itRendersALabel('phoneNumber', 'Phone number');
+    itAssignsAnIdThatMatchesTheLabelID('phoneNumber');
+    itSavesExistingValue('phoneNumber');
+    itSavesNewValue('phoneNumber');
+  });
 });
