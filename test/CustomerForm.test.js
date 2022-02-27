@@ -51,14 +51,17 @@ describe('CustomerForm', () => {
       expect(field(fieldName).id).toEqual(fieldName);
     });
 
-  const itSavesExistingValue = (fieldName) =>
+  const itSavesExistingValue = (
+    fieldName,
+    existingValue = 'existingValue'
+  ) =>
     it('saves existing value when submitted', async () => {
       expect.hasAssertions();
       render(
         <CustomerForm
-          {...{ [fieldName]: 'existingValue' }}
+          {...{ [fieldName]: existingValue }}
           onSubmit={(args) => {
-            expect(args[fieldName]).toEqual('existingValue');
+            expect(args[fieldName]).toEqual(existingValue);
           }}
         />
       );
@@ -79,7 +82,7 @@ describe('CustomerForm', () => {
       );
 
       await ReactTestUtils.Simulate.change(field(fieldName), {
-        target: { value },
+        target: { value, name: fieldName },
       });
 
       await ReactTestUtils.Simulate.submit(form('customer'));
@@ -116,7 +119,7 @@ describe('CustomerForm', () => {
     itIncludesTheExistingValue('phoneNumber');
     itRendersALabel('phoneNumber', 'Phone number');
     itAssignsAnIdThatMatchesTheLabelID('phoneNumber');
-    itSavesExistingValue('phoneNumber');
-    itSavesNewValue('phoneNumber');
+    itSavesExistingValue('phoneNumber', '012345');
+    itSavesNewValue('phoneNumber', '012345');
   });
 });
