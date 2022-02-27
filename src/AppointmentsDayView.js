@@ -11,7 +11,7 @@ const customerFullName = (customer) => {
 };
 
 export const Appointment = ({ customer, details, startsAt }) => (
-  <div>
+  <div id={'appointmentView'}>
     <h3>
       Today's appointment at {appointmentTimeOfDay(startsAt)}
     </h3>
