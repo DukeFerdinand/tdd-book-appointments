@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 
-export const CustomerForm = ({ firstName, onSubmit }) => {
-  const [customer, setCustomer] = useState({ firstName });
+export const CustomerForm = ({
+  firstName,
+  lastName,
+  onSubmit,
+}) => {
+  const [customer, setCustomer] = useState({
+    firstName,
+    lastName,
+  });
 
-  const handleChangeFirstName = ({ target }) => {
-    setCustomer((customer) => ({
-      ...customer,
-      firstName: target.value,
-    }));
-  };
+  const handleInputChange =
+    (fieldName) =>
+    ({ target }) => {
+      setCustomer((customer) => ({
+        ...customer,
+        [fieldName]: target.value,
+      }));
+    };
 
   return (
     <form id="customer" onSubmit={() => onSubmit(customer)}>
@@ -18,8 +27,16 @@ export const CustomerForm = ({ firstName, onSubmit }) => {
         name={'firstName'}
         id={'firstName'}
         value={firstName}
-        onChange={handleChangeFirstName}
-        readOnly
+        onChange={handleInputChange('firstName')}
+      />
+
+      <label htmlFor={'lastName'}>Last name</label>
+      <input
+        type={'text'}
+        name={'lastName'}
+        id={'lastName'}
+        value={lastName}
+        onChange={handleInputChange('lastName')}
       />
     </form>
   );
