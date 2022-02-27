@@ -10,9 +10,11 @@ const customerFullName = (customer) => {
   return `${customer.firstName} ${customer.lastName}`;
 };
 
-export const Appointment = ({ customer, details }) => (
+export const Appointment = ({ customer, details, startsAt }) => (
   <div>
-    {customer.firstName}
+    <h3>
+      Today's appointment at {appointmentTimeOfDay(startsAt)}
+    </h3>
     <table id="customer-info">
       <tbody>
         <tr>

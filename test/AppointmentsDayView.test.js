@@ -26,20 +26,47 @@ describe('Appointment', () => {
       index
     ];
 
-  it('renders the customer first name', () => {
-    customer = { firstName: 'Ashley' };
+  it('renders h3 element for displaying appointment time', () => {
+    const today = new Date();
+    render(
+      <Appointment
+        startsAt={today.setHours(12, 0)}
+        customer={customer}
+        details={details}
+      />
+    );
 
-    render(<Appointment customer={customer} details={details} />);
-
-    expect(container.textContent).toMatch('Ashley');
+    expect(container.querySelector('h3')).not.toBeNull();
   });
 
-  it('renders another customer first name', () => {
-    customer = { firstName: 'Jordan' };
+  it('renders appointment header with given time', () => {
+    const today = new Date();
+    render(
+      <Appointment
+        startsAt={today.setHours(12, 0)}
+        customer={customer}
+        details={details}
+      />
+    );
 
-    render(<Appointment customer={customer} details={details} />);
+    expect(container.querySelector('h3').textContent).toMatch(
+      `Today's appointment at 12:00`
+    );
+  });
 
-    expect(container.textContent).toMatch('Jordan');
+  it('renders appointment header with another given time', () => {
+    const today = new Date();
+    render(
+      <Appointment
+        startsAt={today.setHours(13, 0)}
+        customer={customer}
+        details={details}
+      />
+    );
+
+    expect(container.querySelector('h3').textContent).toMatch(
+      `Today's appointment at 13:00`
+    );
   });
 
   it('renders customer information in a table', () => {
