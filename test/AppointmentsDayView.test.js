@@ -10,12 +10,9 @@ import {
 describe('Appointment', () => {
   let container;
   let customer = {};
-  let details = {};
 
   beforeEach(() => {
     container = document.createElement('div');
-    customer = {};
-    details = {};
   });
 
   const render = (component) =>
@@ -29,50 +26,97 @@ describe('Appointment', () => {
   const appointmentTable = () =>
     container.querySelector('#appointmentView > table');
 
-  it('renders appointment header with given time', () => {
-    const today = new Date();
-    render(
-      <Appointment
-        startsAt={today.setHours(12, 0)}
-        customer={customer}
-        details={details}
-      />
-    );
-
-    expect(container.querySelector('h3').textContent).toMatch(
-      `Today's appointment at 12:00`
-    );
-  });
-
   it('renders a table', () => {
-    render(<Appointment customer={customer} details={details} />);
+    render(<Appointment customer={customer} />);
 
     expect(appointmentTable()).not.toBeNull();
   });
 
-  it('renders h3 element for displaying appointment time', () => {
-    const today = new Date();
-    render(
-      <Appointment
-        startsAt={today.setHours(12, 0)}
-        customer={customer}
-        details={details}
-      />
-    );
+  it('renders a customer first name', () => {
+    customer = { firstName: 'Ashley' };
+    render(<Appointment customer={customer} />);
 
-    expect(container.querySelector('h3')).not.toBeNull();
+    expect(appointmentTable().textContent).toMatch('Ashley');
   });
 
-  it('renders appointment header with another given time', () => {
+  it('renders another customer first name', () => {
+    customer = { firstName: 'Jordan' };
+    render(<Appointment customer={customer} />);
+
+    expect(appointmentTable().textContent).toMatch('Jordan');
+  });
+
+  it('renders a customer last name', () => {
+    customer = { lastName: 'Jones' };
+    render(<Appointment customer={customer} />);
+
+    expect(appointmentTable().textContent).toMatch('Jones');
+  });
+
+  it('renders another customer last name', () => {
+    customer = { lastName: 'Smith' };
+    render(<Appointment customer={customer} />);
+
+    expect(appointmentTable().textContent).toMatch('Smith');
+  });
+
+  it('renders a customer phone number', () => {
+    customer = { phoneNumber: '1112223456' };
+    render(<Appointment customer={customer} />);
+
+    expect(appointmentTable().textContent).toMatch('1112223456');
+  });
+
+  it('renders another customer phone number', () => {
+    customer = { phoneNumber: '2223334567' };
+    render(<Appointment customer={customer} />);
+
+    expect(appointmentTable().textContent).toMatch('2223334567');
+  });
+
+  it('renders the stylist name', () => {
+    render(<Appointment customer={customer} stylist={'Sam'} />);
+
+    expect(appointmentTable().textContent).toMatch('Sam');
+  });
+
+  it('renders another stylist name', () => {
+    render(<Appointment customer={customer} stylist={'Jo'} />);
+    expect(appointmentTable().textContent).toMatch('Jo');
+  });
+
+  it('renders the salon service', () => {
+    render(<Appointment customer={customer} service={'Cut'} />);
+    expect(appointmentTable().textContent).toMatch('Cut');
+  });
+
+  it('renders another salon service', () => {
+    render(
+      <Appointment customer={customer} service={'Blow-dry'} />
+    );
+    expect(appointmentTable().textContent).toMatch('Blow-dry');
+  });
+
+  it('renders the appointment notes', () => {
+    render(<Appointment customer={customer} notes={'abc'} />);
+    expect(appointmentTable().textContent).toMatch('abc');
+  });
+
+  it('renders other appointment notes', () => {
+    render(<Appointment customer={customer} notes={'def'} />);
+    expect(appointmentTable().textContent).toMatch('def');
+  });
+
+  it('renders header with the time', () => {
     const today = new Date();
     render(
       <Appointment
         startsAt={today.setHours(13, 0)}
         customer={customer}
-        details={details}
       />
     );
 
+    expect(container.querySelector('h3')).not.toBeNull();
     expect(container.querySelector('h3').textContent).toMatch(
       `Today's appointment at 13:00`
     );
@@ -87,16 +131,10 @@ describe('AppointmentsDayView', () => {
     {
       startsAt: today.setHours(12, 0),
       customer: { firstName: 'Ashley' },
-      details: {
-        stylist: 'Shannon',
-      },
     },
     {
       startsAt: today.setHours(13, 0),
       customer: { firstName: 'Jordan' },
-      details: {
-        stylist: 'Shannon',
-      },
     },
   ];
 

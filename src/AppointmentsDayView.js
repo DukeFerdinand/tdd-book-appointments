@@ -10,16 +10,24 @@ const customerFullName = (customer) => {
   return `${customer.firstName} ${customer.lastName}`;
 };
 
-export const Appointment = ({ customer, details, startsAt }) => (
+export const Appointment = ({
+  customer,
+  startsAt,
+  stylist,
+  service,
+  notes,
+}) => (
   <div id={'appointmentView'}>
     <h3>
       Today's appointment at {appointmentTimeOfDay(startsAt)}
     </h3>
-    <table id="customer-info">
+    <table>
       <tbody>
         <tr>
           <th>Customer</th>
-          <td>{customerFullName(customer)}</td>
+          <td>
+            {customer.firstName} {customer.lastName}
+          </td>
         </tr>
         <tr>
           <th>Phone Number</th>
@@ -27,15 +35,15 @@ export const Appointment = ({ customer, details, startsAt }) => (
         </tr>
         <tr>
           <th>Stylist</th>
-          <td>{details.stylist}</td>
+          <td>{stylist}</td>
         </tr>
         <tr>
           <th>Service</th>
-          <td>{details.service}</td>
+          <td>{service}</td>
         </tr>
         <tr>
           <th>Notes</th>
-          <td>{details.notes}</td>
+          <td>{notes}</td>
         </tr>
       </tbody>
     </table>
